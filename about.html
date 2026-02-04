@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - AIONYX</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Poppins:wght@300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/theme.css">
+    <style>
+        .about-hero {
+            padding: 160px 0 100px;
+            text-align: center;
+        }
+
+        .mission-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            margin: 4rem 0;
+        }
+
+        .about-img-container {
+            position: relative;
+        }
+
+        .about-img-container img {
+            width: 100%;
+            border-radius: var(--radius-xl);
+            box-shadow: var(--shadow-xl);
+            border: 1px solid var(--border);
+        }
+
+        .dev-item {
+            background: var(--surface);
+            padding: 2.5rem;
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--border);
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .dev-item:hover {
+            transform: translateY(-8px);
+            border-color: var(--primary);
+            box-shadow: var(--glow-primary);
+        }
+
+        .dev-avatar {
+            width: 120px;
+            height: 120px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 50%;
+            margin: 0 auto 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: white;
+            box-shadow: var(--shadow-md);
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <a href="index.html" class="logo">
+            <i class="fas fa-code"></i>
+            <span class="logo-text">AIONYX</span>
+        </a>
+        <div class="nav-links">
+            <a href="courses.html" class="nav-link-item">Courses</a>
+            <a href="about.html" class="nav-link-item active">About Us</a>
+            <a href="contact.html" class="nav-link-item">Contact</a>
+            <span class="nav-divider"></span>
+            <a href="student-login.html" class="nav-btn btn-login">Login</a>
+            <a href="student-signup.html" class="nav-btn btn-signup">Get Started</a>
+        </div>
+    </nav>
+
+    <div class="container">
+        <section class="about-hero">
+            <span class="section-badge">Our Story</span>
+            <h1 class="hero-title">Empowering the Next Generation of <span class="text-gradient">Engineers</span></h1>
+            <p class="section-description" style="max-width: 800px; margin: 1.5rem auto;">At AIONYX, we believe that
+                technical education should be accessible, structured, and patterns-based. We've built a platform that
+                simplifies the complexity of algorithms.</p>
+        </section>
+
+        <section class="mission-grid">
+            <div class="about-img-container">
+                <img src="images/team.png" alt="Our Team">
+            </div>
+            <div class="mission-content">
+                <h2 class="section-title">Our <span class="text-gradient">Mission</span></h2>
+                <p class="section-description">Our goal is to provide a world-class training platform for software
+                    engineers to master the foundations of computer science. We focus on identifying patterns, not
+                    memorizing solutions.</p>
+                <div style="margin-top: 2rem; display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;">
+                    <div class="card" style="padding: 1.5rem;">
+                        <i class="fas fa-eye"
+                            style="color: var(--primary); font-size: 1.5rem; margin-bottom: 1rem;"></i>
+                        <h4>Vision</h4>
+                        <p style="font-size: 0.9rem;">To be the global standard for technical interview preparation.</p>
+                    </div>
+                    <div class="card" style="padding: 1.5rem;">
+                        <i class="fas fa-heart"
+                            style="color: var(--secondary); font-size: 1.5rem; margin-bottom: 1rem;"></i>
+                        <h4>Values</h4>
+                        <p style="font-size: 0.9rem;">Quality, accessibility, and student success above all.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section style="padding: 80px 0;">
+            <div class="section-header">
+                <h2 class="section-title">Meet the <span class="text-gradient">Developers</span></h2>
+                <p class="section-description">The minds behind the AIONYX platform.</p>
+            </div>
+            <div class="features-grid" style="grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));">
+                <div class="dev-item">
+                    <div class="dev-avatar"><i class="fas fa-user-ninja"></i></div>
+                    <h3>Alex Rivera</h3>
+                    <p class="text-gradient" style="font-weight: 700; margin-bottom: 1rem;">Lead Architect</p>
+                    <p style="font-size: 0.9rem; color: var(--text-muted);">Ex-Google Senior Engineer with a passion for
+                        teaching complex systems.</p>
+                </div>
+                <div class="dev-item">
+                    <div class="dev-avatar"><i class="fas fa-user-astronaut"></i></div>
+                    <h3>Sarah Chen</h3>
+                    <p class="text-gradient" style="font-weight: 700; margin-bottom: 1rem;">Full Stack Developer</p>
+                    <p style="font-size: 0.9rem; color: var(--text-muted);">Passionate about creating seamless,
+                        high-performance user experiences.</p>
+                </div>
+                <div class="dev-item">
+                    <div class="dev-avatar"><i class="fas fa-user-secret"></i></div>
+                    <h3>Marcus Thorne</h3>
+                    <p class="text-gradient" style="font-weight: 700; margin-bottom: 1rem;">AI Engineer</p>
+                    <p style="font-size: 0.9rem; color: var(--text-muted);">Specializes in building adaptive learning
+                        algorithms and data models.</p>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-bottom">
+                <p>&copy; 2026 AIONYX. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/theme.js"></script>
+</body>
+
+</html>

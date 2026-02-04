@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enrollment Application - AIONYX</title>
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Theme CSS -->
+    <link rel="stylesheet" href="css/theme.css">
+
+    <style>
+        .auth-container {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            background: radial-gradient(circle at top right, rgba(139, 92, 246, 0.1), transparent),
+                radial-gradient(circle at bottom left, rgba(236, 72, 153, 0.1), transparent);
+        }
+
+        .auth-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-xl);
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            width: 100%;
+            max-width: 1000px;
+            box-shadow: var(--shadow-2xl);
+            overflow: hidden;
+            animation: scaleIn 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .auth-info {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            padding: 4rem;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            position: relative;
+        }
+
+        .auth-info::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg"><circle cx="50" cy="50" r="2" fill="white" opacity="0.1"/></svg>');
+            opacity: 0.3;
+        }
+
+        .auth-info h1 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            z-index: 2;
+        }
+
+        .auth-info p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            margin-bottom: 2.5rem;
+            line-height: 1.6;
+            z-index: 2;
+        }
+
+        .feature-list {
+            list-style: none;
+            z-index: 2;
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.2rem;
+            font-weight: 500;
+        }
+
+        .feature-item i {
+            width: 32px;
+            height: 32px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9rem;
+        }
+
+        .auth-form {
+            padding: 4rem;
+            background: var(--surface);
+        }
+
+        .form-header {
+            margin-bottom: 2.5rem;
+        }
+
+        .form-header h2 {
+            font-size: 1.75rem;
+            font-weight: 800;
+            color: var(--text-primary);
+        }
+
+        .form-header p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            margin-top: 0.5rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.25rem;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 0.85rem 1.25rem;
+            background: var(--background);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            color: var(--text-primary);
+            font-family: inherit;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 4px rgba(139, 92, 246, 0.1);
+        }
+
+        .btn-signup {
+            width: 100%;
+            padding: 1rem;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            border: none;
+            border-radius: var(--radius-md);
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 1rem;
+            box-shadow: var(--glow-primary);
+        }
+
+        .btn-signup:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(139, 92, 246, 0.4);
+        }
+
+        .error-message {
+            background: var(--error-bg);
+            color: var(--error);
+            padding: 1rem;
+            border-radius: var(--radius-md);
+            font-size: 0.85rem;
+            margin-bottom: 2rem;
+            display: none;
+            border: 1px solid var(--error);
+            animation: slideInDown 0.3s ease;
+        }
+
+        .auth-footer {
+            margin-top: 2rem;
+            text-align: center;
+            font-size: 0.95rem;
+            color: var(--text-muted);
+        }
+
+        .auth-footer a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        @media (max-width: 900px) {
+            .auth-card {
+                grid-template-columns: 1fr;
+                max-width: 500px;
+            }
+
+            .auth-info {
+                display: none;
+            }
+
+            .auth-form {
+                padding: 3rem 2rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="auth-container">
+        <div class="auth-card">
+            <div class="auth-info">
+                <h1>Join the Elite</h1>
+                <p>Access the most comprehensive algorithmic training platform and accelerate your engineering career.
+                </p>
+                <ul class="feature-list">
+                    <li class="feature-item"><i class="fas fa-check"></i> 500+ Curated Problems</li>
+                    <li class="feature-item"><i class="fas fa-chart-line"></i> Performance Analytics</li>
+                    <li class="feature-item"><i class="fas fa-microchip"></i> System Design Modules</li>
+                    <li class="feature-item"><i class="fas fa-shield-alt"></i> Enterprise Recognition</li>
+                </ul>
+            </div>
+
+            <div class="auth-form">
+                <div class="form-header">
+                    <h2>Enrollment</h2>
+                    <p>Create your institutional account</p>
+                </div>
+
+                <div id="errorMessage" class="error-message"></div>
+
+                <form id="signupForm">
+                    <div class="form-group">
+                        <label class="form-label">Full Name</label>
+                        <input type="text" id="name" class="form-input" required placeholder="John Doe">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Email Address</label>
+                        <input type="email" id="email" class="form-input" required placeholder="name@example.com">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Secure Password</label>
+                        <input type="password" id="password" class="form-input" required
+                            placeholder="Minimum 6 characters" minlength="6">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Confirm Password</label>
+                        <input type="password" id="confirmPassword" class="form-input" required
+                            placeholder="Repeat password">
+                    </div>
+                    <button type="submit" class="btn-signup" id="signupBtn">Apply for Access</button>
+                </form>
+
+                <div class="auth-footer">
+                    <p>Already registered? <a href="student-login.html">Sign In</a></p>
+                    <div style="margin-top: 1rem;">
+                        <a href="index.html" style="color: var(--text-muted); font-size: 0.85rem;">
+                            <i class="fas fa-arrow-left"></i> Return to Terminal
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Theme Manager -->
+    <script src="js/theme.js"></script>
+
+    <script>
+        const signupForm = document.getElementById('signupForm');
+        const signupBtn = document.getElementById('signupBtn');
+        const errorMessage = document.getElementById('errorMessage');
+
+        signupForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            errorMessage.style.display = 'none';
+
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+
+            if (password !== confirmPassword) {
+                errorMessage.textContent = 'Verification Error: Passwords do not match';
+                errorMessage.style.display = 'block';
+                return;
+            }
+
+            signupBtn.disabled = true;
+            signupBtn.innerHTML = '<i class="fas fa-circle-notch fa-spin"></i> Processing...';
+
+            try {
+                const response = await fetch('/api/auth/student/signup', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ name, email, password })
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    signupBtn.style.background = 'var(--success)';
+                    signupBtn.innerHTML = '<i class="fas fa-check"></i> Enrollment Successful';
+
+                    setTimeout(() => {
+                        window.location.href = 'student-login.html?signup=success';
+                    }, 1000);
+                } else {
+                    errorMessage.textContent = data.message || 'Enrollment Failure';
+                    errorMessage.style.display = 'block';
+                    signupBtn.disabled = false;
+                    signupBtn.innerHTML = 'Apply for Access';
+                }
+            } catch (err) {
+                errorMessage.textContent = 'System Communication Failure';
+                errorMessage.style.display = 'block';
+                signupBtn.disabled = false;
+                signupBtn.innerHTML = 'Apply for Access';
+            }
+        });
+    </script>
+</body>
+
+</html>

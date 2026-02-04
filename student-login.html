@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Academic Access - AIONYX</title>
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Theme CSS -->
+    <link rel="stylesheet" href="css/theme.css">
+
+    <style>
+        .auth-container {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            background: radial-gradient(circle at top right, rgba(139, 92, 246, 0.1), transparent),
+                radial-gradient(circle at bottom left, rgba(236, 72, 153, 0.1), transparent);
+            position: relative;
+            z-index: 1;
+        }
+
+        .auth-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-xl);
+            padding: 3.5rem;
+            width: 100%;
+            max-width: 480px;
+            box-shadow: var(--shadow-2xl);
+            animation: scaleIn 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+            position: relative;
+            z-index: 10;
+        }
+
+        .auth-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .auth-header i {
+            font-size: 3.5rem;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1.5rem;
+            display: block;
+        }
+
+        .auth-header h1 {
+            font-size: 1.75rem;
+            font-weight: 800;
+            color: var(--text-primary);
+            letter-spacing: -0.5px;
+        }
+
+        .auth-header p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            margin-top: 0.5rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 1rem 1.25rem;
+            background: var(--background);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            color: var(--text-primary);
+            font-family: inherit;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 4px rgba(139, 92, 246, 0.1);
+        }
+
+        .btn-login {
+            width: 100%;
+            padding: 1.1rem;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            border: none;
+            border-radius: var(--radius-md);
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 1.5rem;
+            box-shadow: var(--glow-primary);
+        }
+
+        .btn-login:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(139, 92, 246, 0.4);
+        }
+
+        .error-message {
+            background: var(--error-bg);
+            color: var(--error);
+            padding: 1rem;
+            border-radius: var(--radius-md);
+            font-size: 0.9rem;
+            margin-bottom: 2rem;
+            display: none;
+            border: 1px solid var(--error);
+            animation: slideInDown 0.3s ease;
+            text-align: center;
+        }
+
+        .success-message {
+            background: var(--success-bg);
+            color: var(--success);
+            padding: 1rem;
+            border-radius: var(--radius-md);
+            font-size: 0.9rem;
+            margin-bottom: 2rem;
+            display: none;
+            border: 1px solid var(--success);
+            animation: slideInDown 0.3s ease;
+            text-align: center;
+        }
+
+        .auth-footer {
+            margin-top: 2.5rem;
+            text-align: center;
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            border-top: 1px solid var(--border);
+            padding-top: 1.5rem;
+        }
+
+        .auth-footer a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .auth-footer a:hover {
+            color: var(--secondary);
+            text-decoration: underline;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="auth-container">
+        <div class="auth-card">
+            <div class="auth-header">
+                <i class="fas fa-user-circle"></i>
+                <h1>Academic Access</h1>
+                <p>Login to continue your engineering curriculum</p>
+            </div>
+
+            <div id="errorMessage" class="error-message"></div>
+            <div id="successMessage" class="success-message"></div>
+
+            <form id="loginForm">
+                <div class="form-group">
+                    <label class="form-label">Email Address</label>
+                    <input type="email" id="email" class="form-input" required placeholder="name@example.com">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Secure Password</label>
+                    <input type="password" id="password" class="form-input" required placeholder="••••••••">
+                </div>
+                <button type="submit" class="btn-login" id="loginBtn">Verify Access</button>
+            </form>
+
+            <div class="auth-footer">
+                <p>New candidate? <a href="student-signup.html">Enrollment Application</a></p>
+                <div style="margin-top: 1rem;">
+                    <a href="index.html" style="color: var(--text-muted); font-size: 0.85rem;">
+                        <i class="fas fa-arrow-left"></i> Return to Terminal
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Theme Manager -->
+    <script src="js/theme.js"></script>
+
+    <script>
+        // Check for success param from signup
+        const urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.get('signup') === 'success') {
+            const successMsg = document.getElementById('successMessage');
+            successMsg.textContent = 'Account verification successful. You may now proceed.';
+            successMsg.style.display = 'block';
+        }
+
+        const loginForm = document.getElementById('loginForm');
+        const loginBtn = document.getElementById('loginBtn');
+        const errorMessage = document.getElementById('errorMessage');
+
+        loginForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            errorMessage.style.display = 'none';
+            loginBtn.disabled = true;
+            loginBtn.innerHTML = '<i class="fas fa-circle-notch fa-spin"></i> Verifying...';
+
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+
+            try {
+                const response = await fetch('/api/auth/login', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email, password })
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    localStorage.setItem('token', data.token);
+                    localStorage.setItem('role', data.user.role);
+                    localStorage.setItem('user', JSON.stringify(data.user));
+
+                    if (data.user.role === 'admin') {
+                        window.location.href = 'admin-dashboard.html';
+                    } else {
+                        window.location.href = 'student-dashboard.html';
+                    }
+                } else {
+                    errorMessage.textContent = data.message || 'Access Denied: Invalid Credentials';
+                    errorMessage.style.display = 'block';
+                    loginBtn.disabled = false;
+                    loginBtn.innerHTML = 'Verify Access';
+                }
+            } catch (err) {
+                errorMessage.textContent = 'System Synchronization Error';
+                errorMessage.style.display = 'block';
+                loginBtn.disabled = false;
+                loginBtn.innerHTML = 'Verify Access';
+            }
+        });
+
+        // Auto-redirect disabled - users must explicitly login
+        // Uncomment below if you want auto-redirect for already authenticated users
+        /*
+        window.addEventListener('load', () => {
+            const token = localStorage.getItem('token');
+            const role = localStorage.getItem('role');
+            if (token) {
+                if (role === 'admin') window.location.replace('admin-dashboard.html');
+                else window.location.replace('student-dashboard.html');
+            }
+        });
+        */
+    </script>
+</body>
+
+</html>

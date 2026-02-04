@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Courses - AIONYX</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Poppins:wght@300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/theme.css">
+    <style>
+        .courses-hero {
+            padding: 160px 0 100px;
+            background: radial-gradient(circle at top right, rgba(139, 92, 246, 0.1), transparent 40%);
+        }
+
+        .hero-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .course-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.6rem 1.2rem;
+            background: rgba(139, 92, 246, 0.1);
+            border: 1px solid var(--primary);
+            color: var(--primary);
+            border-radius: 50px;
+            font-size: 0.9rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .hero-title {
+            font-size: 3.5rem;
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            animation: fadeInUp 0.8s ease-out 0.2s both;
+        }
+
+        .hero-desc {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            margin-bottom: 2.5rem;
+            animation: fadeInUp 0.8s ease-out 0.4s both;
+        }
+
+        .hero-img-box {
+            position: relative;
+            animation: slideInRight 1s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .hero-img-box img {
+            width: 100%;
+            border-radius: var(--radius-xl);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5);
+            border: 1px solid var(--border);
+        }
+
+        /* Roadmap Section */
+        .roadmap-section {
+            padding: 100px 0;
+            background: var(--background-secondary);
+        }
+
+        .roadmap-container {
+            text-align: center;
+        }
+
+        .roadmap-img {
+            max-width: 1000px;
+            margin: 4rem auto;
+            border-radius: var(--radius-xl);
+            box-shadow: var(--shadow-xl);
+            border: 1px solid var(--border);
+            display: block;
+            width: 100%;
+        }
+
+        /* Sliding Sections */
+        .sliding-container {
+            overflow: hidden;
+            padding: 60px 0;
+            white-space: nowrap;
+            position: relative;
+            background: var(--surface);
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .sliding-track {
+            display: inline-flex;
+            animation: slideMove 40s linear infinite;
+            gap: 2rem;
+        }
+
+        .section-item {
+            flex: 0 0 auto;
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            background: var(--surface-elevated);
+            padding: 1rem 2rem;
+            border-radius: 100px;
+            border: 1px solid var(--border);
+            transition: all 0.3s ease;
+        }
+
+        .section-item:hover {
+            border-color: var(--primary);
+            transform: translateY(-5px);
+            background: var(--surface-hover);
+        }
+
+        .section-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+        }
+
+        .section-name {
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: var(--text-primary);
+        }
+
+        @keyframes slideMove {
+            0% {
+                transform: translateX(0);
+            }
+
+            100% {
+                transform: translateX(-50%);
+            }
+        }
+
+        /* Premium Card */
+        .pricing-section {
+            padding: 100px 0;
+            text-align: center;
+        }
+
+        .premium-card {
+            max-width: 500px;
+            margin: 0 auto;
+            background: linear-gradient(135deg, var(--surface-elevated), var(--background));
+            border: 1px solid var(--primary);
+            border-radius: var(--radius-xl);
+            padding: 4rem;
+            position: relative;
+            overflow: hidden;
+            box-shadow: var(--glow-primary);
+        }
+
+        .premium-card::before {
+            content: 'PREMIUM';
+            position: absolute;
+            top: 40px;
+            right: -40px;
+            background: var(--primary);
+            color: white;
+            padding: 0.5rem 4rem;
+            transform: rotate(45deg);
+            font-weight: 900;
+            font-size: 0.8rem;
+            letter-spacing: 2px;
+        }
+
+        .price-tag {
+            font-size: 4rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .price-sub {
+            color: var(--text-muted);
+            margin-bottom: 2rem;
+            font-weight: 600;
+        }
+
+        .benefit-list {
+            list-style: none;
+            padding: 0;
+            text-align: left;
+            margin-bottom: 3rem;
+        }
+
+        .benefit-list li {
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            color: var(--text-secondary);
+        }
+
+        .benefit-list li i {
+            color: var(--success);
+        }
+
+        @media (max-width: 900px) {
+            .hero-layout {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .course-badge {
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <a href="index.html" class="logo">
+            <i class="fas fa-code"></i>
+            <span class="logo-text">AIONYX</span>
+        </a>
+        <div class="nav-links">
+            <a href="courses.html" class="nav-link-item active">Courses</a>
+            <a href="about.html" class="nav-link-item">About Us</a>
+            <a href="contact.html" class="nav-link-item">Contact</a>
+            <span class="nav-divider"></span>
+            <a href="student-login.html" class="nav-btn btn-login">Login</a>
+            <a href="student-signup.html" class="nav-btn btn-signup">Get Started</a>
+        </div>
+    </nav>
+
+    <!-- Course Hero -->
+    <section class="courses-hero">
+        <div class="container">
+            <div class="hero-layout">
+                <div class="hero-content">
+                    <span class="course-badge"><i class="fas fa-rocket"></i> Featured Programs</span>
+                    <h1 class="hero-title">Mastering <span class="text-gradient">Data Structures & Algorithms</span>
+                    </h1>
+                    <p class="hero-desc">The ultimate curriculum designed to take you from a curious beginner to a
+                        senior-level algorithm expert. Built for interviews at Google, Meta, and Amazon.</p>
+                    <div style="display: flex; gap: 1rem;">
+                        <button class="btn btn-primary">Enroll Now</button>
+                        <button class="btn btn-outline"
+                            onclick="document.getElementById('roadmap').scrollIntoView()">Explore Roadmap</button>
+                    </div>
+                </div>
+                <div class="hero-img-box">
+                    <img src="images/dsa_hero.png" alt="DSA Master Course">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sliding Sections Area -->
+    <div class="sliding-container">
+        <div class="sliding-track">
+            <!-- First set -->
+            <div class="section-item">
+                <div class="section-icon"><i class="fas fa-layer-group"></i></div><span class="section-name">Arrays &
+                    Hashing</span>
+            </div>
+            <div class="section-item">
+                <div class="section-icon"><i class="fas fa-arrows-alt-h"></i></div><span class="section-name">Two
+                    Pointers</span>
+            </div>
+            <div class="section-item">
+                <div class="section-icon"><i class="fas fa-window-restore"></i></div><span class="section-name">Sliding
+                    Window</span>
+            </div>
+            <div class="section-item">
+                <div class="section-icon"><i class="fas fa-database"></i></div><span class="section-name">Stacks &
+                    Queues</span>
+            </div>
+            <div class="section-item">
+                <div class="section-icon"><i class="fas fa-search"></i></div><span class="section-name">Binary
+                    Search</span>
+            </div>
+            <div class="section-item">
+                <div class="section-icon"><i class="fas fa-link"></i></div><span class="section-name">Linked
+                    Lists</span>
+            </div>
+            <div class="section-item">
+                <div class="section-icon"><i class="fas fa-tree"></i></div><span class="section-name">Trees &
+                    Graphs</span>
+            </div>
+            <div class="section-item">
+                <div class="section-icon"><i class="fas fa-brain"></i></div><span class="section-name">Dynamic
+                    Programming</span>
+            </div>
+            <!-- Duplicate for infinite loop -->
+            <div class="section-item">
+                <div class="section-icon"><i class="fas fa-layer-group"></i></div><span class="section-name">Arrays &
+                    Hashing</span>
+            </div>
+            <div class="section-item">
+                <div class="section-icon"><i class="fas fa-arrows-alt-h"></i></div><span class="section-name">Two
+                    Pointers</span>
+            </div>
+            <div class="section-item">
+                <div class="section-icon"><i class="fas fa-window-restore"></i></div><span class="section-name">Sliding
+                    Window</span>
+            </div>
+            <div class="section-item">
+                <div class="section-icon"><i class="fas fa-database"></i></div><span class="section-name">Stacks &
+                    Queues</span>
+            </div>
+            <div class="section-item">
+                <div class="section-icon"><i class="fas fa-search"></i></div><span class="section-name">Binary
+                    Search</span>
+            </div>
+            <div class="section-item">
+                <div class="section-icon"><i class="fas fa-link"></i></div><span class="section-name">Linked
+                    Lists</span>
+            </div>
+            <div class="section-item">
+                <div class="section-icon"><i class="fas fa-tree"></i></div><span class="section-name">Trees &
+                    Graphs</span>
+            </div>
+            <div class="section-item">
+                <div class="section-icon"><i class="fas fa-brain"></i></div><span class="section-name">Dynamic
+                    Programming</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Roadmap Visualization -->
+    <section id="roadmap" class="roadmap-section">
+        <div class="container">
+            <div class="roadmap-container">
+                <span class="section-badge">Visual Path</span>
+                <h2 class="section-title">Your Learning <span class="text-gradient">BluePrint</span></h2>
+                <p class="section-description">A systematic step-by-step roadmap to conquering complex computer science
+                    concepts.</p>
+                <img src="images/dsa_roadmap.png" alt="DSA Roadmap" class="roadmap-img">
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section class="pricing-section">
+        <div class="container">
+            <div class="premium-card">
+                <h3 style="font-size: 2rem; margin-bottom: 2rem;">Master Course Pass</h3>
+                <div class="price-tag">$50</div>
+                <div class="price-sub">One-time payment. Lifetime access.</div>
+
+                <ul class="benefit-list">
+                    <li><i class="fas fa-check-circle"></i> 500+ Curated Interview Problems</li>
+                    <li><i class="fas fa-check-circle"></i> Multi-language Solutions (Python, Java, C++)</li>
+                    <li><i class="fas fa-check-circle"></i> Advanced System Design Modules</li>
+                    <li><i class="fas fa-check-circle"></i> Interactive Roadmap & Progress Tracker</li>
+                    <li><i class="fas fa-check-circle"></i> Priority Mentor Support</li>
+                    <li><i class="fas fa-check-circle"></i> Certificate of Completion</li>
+                </ul>
+
+                <button class="btn btn-primary"
+                    style="width: 100%; padding: 1.5rem; justify-content: center; font-size: 1.2rem;">
+                    Get Lifetime Access
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-bottom">
+                <p>&copy; 2026 AIONYX. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/theme.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - AIONYX</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Poppins:wght@300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/theme.css">
+    <style>
+        .contact-hero {
+            padding: 160px 0 60px;
+            text-align: center;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1.5fr;
+            gap: 4rem;
+            margin: 4rem 0 100px;
+        }
+
+        .contact-info-card {
+            background: var(--surface);
+            padding: 3rem;
+            border-radius: var(--radius-xl);
+            border: 1px solid var(--border);
+            height: fit-content;
+        }
+
+        .contact-method {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .method-icon {
+            width: 50px;
+            height: 50px;
+            background: rgba(139, 92, 246, 0.1);
+            border: 1px solid var(--primary);
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary);
+            font-size: 1.5rem;
+        }
+
+        .contact-form-container {
+            background: var(--surface-elevated);
+            padding: 4rem;
+            border-radius: var(--radius-xl);
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow-xl);
+        }
+
+        @media (max-width: 900px) {
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <a href="index.html" class="logo">
+            <i class="fas fa-code"></i>
+            <span class="logo-text">AIONYX</span>
+        </a>
+        <div class="nav-links">
+            <a href="courses.html" class="nav-link-item">Courses</a>
+            <a href="about.html" class="nav-link-item">About Us</a>
+            <a href="contact.html" class="nav-link-item active">Contact</a>
+            <span class="nav-divider"></span>
+            <a href="student-login.html" class="nav-btn btn-login">Login</a>
+            <a href="student-signup.html" class="nav-btn btn-signup">Get Started</a>
+        </div>
+    </nav>
+
+    <div class="container">
+        <section class="contact-hero">
+            <span class="section-badge">Get in Touch</span>
+            <h1 class="hero-title">How Can We <span class="text-gradient">Help You?</span></h1>
+            <p class="section-description">Have questions about our courses or technical support? Our team is here to
+                help.</p>
+        </section>
+
+        <section class="contact-grid">
+            <div class="contact-info-card">
+                <h2 style="margin-bottom: 2rem;">Contact info</h2>
+                <div class="contact-method">
+                    <div class="method-icon"><i class="fas fa-envelope"></i></div>
+                    <div>
+                        <h4 style="color: var(--text-muted); font-size: 0.8rem; text-transform: uppercase;">Email Us
+                        </h4>
+                        <p style="font-weight: 700;">support@aionyx.edu</p>
+                    </div>
+                </div>
+                <div class="contact-method">
+                    <div class="method-icon"><i class="fas fa-phone"></i></div>
+                    <div>
+                        <h4 style="color: var(--text-muted); font-size: 0.8rem; text-transform: uppercase;">Call Us</h4>
+                        <p style="font-weight: 700;">+1 (555) 123-4567</p>
+                    </div>
+                </div>
+                <div class="contact-method">
+                    <div class="method-icon"><i class="fas fa-map-marker-alt"></i></div>
+                    <div>
+                        <h4 style="color: var(--text-muted); font-size: 0.8rem; text-transform: uppercase;">Location
+                        </h4>
+                        <p style="font-weight: 700;">Silicon Valley, CA</p>
+                    </div>
+                </div>
+
+                <div style="margin-top: 4rem;">
+                    <h4 style="margin-bottom: 1.5rem;">Follow Our Progress</h4>
+                    <div class="footer-social">
+                        <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-github"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-discord"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="contact-form-container">
+                <form id="contactForm"
+                    onsubmit="event.preventDefault(); alert('Message sent successfully!'); this.reset();">
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;">
+                        <div class="form-group">
+                            <label class="form-label">First Name</label>
+                            <input type="text" class="form-input" placeholder="John" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Last Name</label>
+                            <input type="text" class="form-input" placeholder="Doe" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Email Address</label>
+                        <input type="email" class="form-input" placeholder="john@example.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Subject</label>
+                        <select class="form-select">
+                            <option>Course Inquiry</option>
+                            <option>Technical Support</option>
+                            <option>Business Collaboration</option>
+                            <option>Other</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Your Message</label>
+                        <textarea class="form-textarea" placeholder="How can we help you?" required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary"
+                        style="width: 100%; justify-content: center; padding: 1.25rem;">
+                        Send Message <i class="fas fa-paper-plane" style="margin-left: 0.5rem;"></i>
+                    </button>
+                </form>
+            </div>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-bottom">
+                <p>&copy; 2026 AIONYX. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/theme.js"></script>
+</body>
+
+</html>

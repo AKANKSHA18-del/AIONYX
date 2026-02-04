@@ -1,0 +1,1215 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Dashboard - AIONYX</title>
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Theme CSS -->
+    <link rel="stylesheet" href="css/theme.css">
+
+    <style>
+        body {
+            padding-top: 80px;
+        }
+
+        .dashboard-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+            display: grid;
+            grid-template-columns: 320px 1fr;
+            gap: 2rem;
+            animation: fadeIn 0.8s ease-out;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            position: sticky;
+            top: 100px;
+            height: fit-content;
+            animation: slideInLeft 0.8s ease-out;
+        }
+
+        .profile-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 2rem;
+            margin-bottom: 1.5rem;
+            text-align: center;
+            box-shadow: var(--shadow-md);
+        }
+
+        .profile-avatar {
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 3rem;
+            margin: 0 auto 1rem;
+            box-shadow: var(--glow-primary);
+        }
+
+        .profile-name {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .profile-email {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .progress-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 1.5rem;
+            box-shadow: var(--shadow-md);
+        }
+
+        .progress-header {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .progress-header i {
+            color: var(--primary);
+        }
+
+        .stat-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem;
+            background: var(--background);
+            border-radius: var(--radius-md);
+            margin-bottom: 1rem;
+            transition: all var(--transition-base);
+        }
+
+        .stat-item:hover {
+            transform: translateX(5px);
+            background: var(--surface-hover);
+        }
+
+        .stat-label {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--text-secondary);
+        }
+
+        .stat-badge {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+        }
+
+        .stat-badge.easy {
+            background: var(--success-bg);
+            color: var(--success);
+        }
+
+        .stat-badge.medium {
+            background: var(--warning-bg);
+            color: var(--warning);
+        }
+
+        .stat-badge.hard {
+            background: var(--error-bg);
+            color: var(--error);
+        }
+
+        .stat-value {
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+
+        .total-solved {
+            text-align: center;
+            padding: 2rem 1rem;
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.1), rgba(236, 72, 153, 0.1));
+            border-radius: var(--radius-md);
+            margin-top: 1.5rem;
+        }
+
+        .total-number {
+            font-size: 3rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        .total-label {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Main Content */
+        .main-content {
+            animation: slideInRight 0.8s ease-out;
+        }
+
+        .welcome-banner {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: var(--radius-lg);
+            padding: 2.5rem;
+            margin-bottom: 2rem;
+            color: white;
+            position: relative;
+            overflow: hidden;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .welcome-banner::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg"><circle cx="50" cy="50" r="2" fill="white" opacity="0.1"/></svg>');
+            opacity: 0.3;
+        }
+
+        .welcome-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .welcome-banner h1 {
+            font-size: 2rem;
+            font-weight: 800;
+            margin-bottom: 0.5rem;
+        }
+
+        .welcome-banner p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .curriculum-section {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 2rem;
+            box-shadow: var(--shadow-md);
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .section-title i {
+            color: var(--primary);
+        }
+
+        .filter-tabs {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .filter-tab {
+            padding: 0.5rem 1rem;
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border);
+            background: transparent;
+            color: var(--text-secondary);
+            font-weight: 600;
+            cursor: pointer;
+            transition: all var(--transition-base);
+        }
+
+        .filter-tab:hover,
+        .filter-tab.active {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        .chapter-group {
+            margin-bottom: 2.5rem;
+        }
+
+        .chapter-header {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 2px solid var(--border);
+        }
+
+        .problem-item {
+            background: var(--background);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            margin-bottom: 1rem;
+            overflow: hidden;
+            transition: all var(--transition-base);
+        }
+
+        .problem-item:hover {
+            border-color: var(--primary);
+            box-shadow: var(--shadow-md);
+        }
+
+        .problem-summary {
+            padding: 1.25rem 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            transition: all var(--transition-base);
+        }
+
+        .problem-summary:hover {
+            background: var(--surface-hover);
+        }
+
+        .problem-meta {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .difficulty-badge {
+            padding: 0.25rem 0.75rem;
+            border-radius: 50px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .difficulty-badge.Easy {
+            background: var(--success-bg);
+            color: var(--success);
+        }
+
+        .difficulty-badge.Medium {
+            background: var(--warning-bg);
+            color: var(--warning);
+        }
+
+        .difficulty-badge.Hard {
+            background: var(--error-bg);
+            color: var(--error);
+        }
+
+        .problem-title {
+            font-weight: 600;
+            font-size: 1.05rem;
+            color: var(--text-primary);
+            text-decoration: none;
+            transition: color var(--transition-base);
+        }
+
+        .problem-title:hover {
+            color: var(--primary);
+        }
+
+        .problem-actions {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .expand-icon {
+            color: var(--text-muted);
+            transition: transform var(--transition-base);
+        }
+
+        .problem-item.expanded .expand-icon {
+            transform: rotate(180deg);
+        }
+
+        .problem-details {
+            display: none;
+            background: var(--surface);
+            border-top: 1px solid var(--border);
+            padding: 1.5rem;
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        .problem-item.expanded .problem-details {
+            display: block;
+        }
+
+        .action-tabs {
+            display: flex;
+            gap: 0.75rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .action-tab {
+            padding: 0.75rem 1.25rem;
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border);
+            background: var(--background);
+            color: var(--text-secondary);
+            font-weight: 600;
+            cursor: pointer;
+            transition: all var(--transition-base);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .action-tab:hover,
+        .action-tab.active {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        .content-display {
+            display: none;
+            background: var(--background);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            padding: 1.5rem;
+            font-family: 'Fira Code', 'Courier New', monospace;
+            font-size: 0.95rem;
+            line-height: 1.7;
+            white-space: pre-wrap;
+            color: var(--text-secondary);
+        }
+
+        .content-display.active {
+            display: block;
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        .complexity-info {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-top: 1.5rem;
+            padding: 1.5rem;
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.05), rgba(236, 72, 153, 0.05));
+            border-radius: var(--radius-md);
+        }
+
+        .complexity-item {
+            text-align: center;
+        }
+
+        .complexity-label {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-bottom: 0.5rem;
+        }
+
+        .complexity-value {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .loading-state {
+            text-align: center;
+            padding: 4rem;
+            color: var(--text-muted);
+        }
+
+        .loading-spinner {
+            font-size: 2rem;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* Grid for Questions */
+        .questions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2.5rem;
+        }
+
+        .question-btn {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 1.5rem;
+            text-align: left;
+            cursor: pointer;
+            transition: all var(--transition-base);
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .question-btn:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .question-btn.solved {
+            border-color: var(--success);
+            background: linear-gradient(to bottom right, var(--surface), rgba(34, 197, 94, 0.05));
+        }
+
+        .solved-badge {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            color: var(--success);
+            font-size: 1.25rem;
+            display: none;
+        }
+
+        .question-btn.solved .solved-badge {
+            display: block;
+        }
+
+        /* Modal Redesign */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(8px);
+            z-index: 10000;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-xl);
+            width: 100%;
+            max-width: 900px;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+            animation: modalIn 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            padding: 3rem;
+        }
+
+        @keyframes modalIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px) scale(0.95);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
+            background: var(--surface-hover);
+            border: none;
+            color: var(--text-primary);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+            transition: all 0.3s ease;
+        }
+
+        .modal-close:hover {
+            background: var(--error);
+            color: white;
+            transform: rotate(90deg);
+        }
+
+        .solve-action-btn {
+            width: 100%;
+            padding: 1.25rem;
+            background: linear-gradient(135deg, var(--success), #16a34a);
+            color: white;
+            border: none;
+            border-radius: var(--radius-md);
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.75rem;
+            box-shadow: 0 4px 15px rgba(34, 197, 94, 0.3);
+        }
+
+        .solve-action-btn:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(34, 197, 94, 0.4);
+        }
+
+        .solve-action-btn:disabled {
+            background: #cbd5e1;
+            box-shadow: none;
+            cursor: not-allowed;
+            opacity: 0.8;
+        }
+
+        .solve-action-btn.is-solved {
+            background: #10b981;
+        }
+
+        /* Tabs inside modal */
+        .modal-tabs {
+            display: flex;
+            gap: 1rem;
+            margin: 2rem 0;
+            border-bottom: 2px solid var(--border);
+            padding-bottom: 1rem;
+        }
+
+        .modal-tab {
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            padding: 0.5rem 1rem;
+            position: relative;
+            transition: color 0.3s ease;
+        }
+
+        .modal-tab.active {
+            color: var(--primary);
+        }
+
+        .modal-tab.active::after {
+            content: '';
+            position: absolute;
+            bottom: -1rem;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: var(--primary);
+        }
+
+        @media (max-width: 768px) {
+            .modal-content {
+                padding: 1.5rem;
+            }
+        }
+
+        /* Premium Dashboard Enhancements */
+        :root {
+            --glass-bg: rgba(255, 255, 255, 0.03);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --premium-gradient: linear-gradient(135deg, var(--primary), var(--secondary));
+            --premium-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        [data-theme="light"] {
+            --glass-bg: rgba(255, 255, 255, 0.7);
+            --glass-border: rgba(0, 0, 0, 0.1);
+        }
+
+        .welcome-banner {
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+            z-index: 1;
+        }
+
+        .welcome-banner::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -10%;
+            width: 300px;
+            height: 300px;
+            background: rgba(255, 255, 255, 0.1);
+            filter: blur(60px);
+            border-radius: 50%;
+            z-index: -1;
+        }
+
+        .question-btn {
+            backdrop-filter: blur(10px);
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .question-btn:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+            border-color: var(--primary);
+        }
+
+        .chapter-header {
+            font-size: 1.4rem;
+            letter-spacing: -0.5px;
+            text-transform: none;
+            color: var(--text-primary);
+        }
+
+        .difficulty-badge {
+            border-radius: 6px;
+            text-transform: uppercase;
+            font-size: 0.7rem;
+            letter-spacing: 1px;
+            font-weight: 800;
+        }
+
+        .solve-action-btn {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .solve-action-btn::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: rgba(255, 255, 255, 0.1);
+            transform: rotate(45deg);
+            transition: 0.5s;
+        }
+
+        .solve-action-btn:hover::after {
+            left: 100%;
+        }
+
+        /* Loading Spinner */
+        .loading-spinner {
+            font-size: 3rem;
+            color: var(--primary);
+            text-shadow: 0 0 20px var(--primary-shadow);
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <a href="index.html" class="logo">
+            <i class="fas fa-code"></i>
+            <span class="logo-text">AIONYX</span>
+        </a>
+        <div class="nav-links">
+            <span id="userName" style="color: var(--text-muted); font-weight: 600;">Student</span>
+            <button id="logoutBtn" class="btn btn-ghost">
+                Logout
+            </button>
+        </div>
+    </nav>
+
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="profile-card">
+                <div class="profile-avatar">
+                    <i class="fas fa-user"></i>
+                </div>
+                <h2 class="profile-name" id="profileName">Student</h2>
+                <p class="profile-email" id="profileEmail">student@example.com</p>
+            </div>
+
+            <div class="progress-card">
+                <div class="progress-header">
+                    <i class="fas fa-chart-line"></i>
+                    Progress Overview
+                </div>
+
+                <div class="stat-item">
+                    <div class="stat-label">
+                        <div class="stat-badge easy">
+                            <i class="fas fa-check"></i>
+                        </div>
+                        <span>Easy</span>
+                    </div>
+                    <span class="stat-value" id="easyProgress">0/0</span>
+                </div>
+
+                <div class="stat-item">
+                    <div class="stat-label">
+                        <div class="stat-badge medium">
+                            <i class="fas fa-check"></i>
+                        </div>
+                        <span>Medium</span>
+                    </div>
+                    <span class="stat-value" id="mediumProgress">0/0</span>
+                </div>
+
+                <div class="stat-item">
+                    <div class="stat-label">
+                        <div class="stat-badge hard">
+                            <i class="fas fa-check"></i>
+                        </div>
+                        <span>Hard</span>
+                    </div>
+                    <span class="stat-value" id="hardProgress">0/0</span>
+                </div>
+
+                <div class="total-solved">
+                    <span class="total-number" id="totalSolved">0</span>
+                    <span class="total-label">Problems Solved</span>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <div class="welcome-banner">
+                <div class="welcome-content">
+                    <h1>Academic Progression Dashboard</h1>
+                    <p>Access your curated engineering curriculum and monitor technical skill acquisition.</p>
+                </div>
+            </div>
+
+            <div class="curriculum-section">
+                <div class="section-header">
+                    <h2 class="section-title">
+                        <i class="fas fa-book"></i>
+                        Your Curriculum
+                    </h2>
+                    <div class="filter-tabs">
+                        <button class="filter-tab active" data-filter="all">All</button>
+                        <button class="filter-tab" data-filter="Easy">Easy</button>
+                        <button class="filter-tab" data-filter="Medium">Medium</button>
+                        <button class="filter-tab" data-filter="Hard">Hard</button>
+                    </div>
+                </div>
+
+                <div id="curriculumArea">
+                    <div class="loading-state">
+                        <i class="fas fa-circle-notch loading-spinner"></i>
+                        <p>Loading curriculum...</p>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Question Modal -->
+    <div id="questionModal" class="modal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal()">
+                <i class="fas fa-times"></i>
+            </button>
+            <div id="modalHeader">
+                <span id="modalDifficulty" class="difficulty-badge">Easy</span>
+                <div style="display: flex; align-items: center; justify-content: space-between; margin-top: 1rem;">
+                    <h2 id="modalTitle" style="font-size: 2rem; margin: 0;">Question Title</h2>
+                    <a id="modalLeetCodeIcon" href="#" target="_blank" style="color: #ffa116; font-size: 1.5rem;"
+                        title="Solve on LeetCode">
+                        <i class="fas fa-external-link-alt"></i>
+                    </a>
+                </div>
+                <div id="modalSection" style="margin-top: 0.5rem; color: var(--text-muted);">
+                    <i class="fas fa-folder"></i> <span id="modalSectionName">Section Name</span>
+                </div>
+            </div>
+
+            <div class="modal-tabs">
+                <button id="tab-approach" class="modal-tab active"
+                    onclick="switchModalTab('approach')">Approach</button>
+                <button id="tab-solutions" class="modal-tab" onclick="switchModalTab('solutions')">Solutions</button>
+            </div>
+
+            <div id="modalContent">
+                <div id="modalApproach" class="modal-body active">
+                    <p id="approachText" style="line-height: 1.8; color: var(--text-secondary);"></p>
+                </div>
+                <div id="modalSolutions" class="modal-body" style="display: none;">
+                    <div style="display: flex; gap: 0.5rem; margin-bottom: 1rem;">
+                        <button class="filter-tab active" onclick="switchLanguage('python')"
+                            id="lang-python">Python</button>
+                        <button class="filter-tab" onclick="switchLanguage('java')" id="lang-java">Java</button>
+                        <button class="filter-tab" onclick="switchLanguage('cpp')" id="lang-cpp">C++</button>
+                    </div>
+                    <pre
+                        style="background: var(--background); padding: 1.5rem; border-radius: var(--radius-md); overflow-x: auto; font-family: 'Fira Code', monospace; font-size: 0.9rem;"><code id="solutionCode"></code></pre>
+                </div>
+            </div>
+
+            <button id="markSolvedBtn" class="solve-action-btn" onclick="markAsSolved()" style="margin-top: 2rem;">
+                <i class="fas fa-check-circle"></i>
+                <span>Mark as Solved</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Theme Manager -->
+    <script src="js/theme.js"></script>
+
+    <script>
+        const API_URL = '/api';
+        const token = localStorage.getItem('token');
+        const user = JSON.parse(localStorage.getItem('user') || '{}');
+
+        if (!token) {
+            window.location.href = 'student-login.html';
+        }
+
+        // Update user info
+        document.getElementById('userName').textContent = user.name || 'Student';
+        document.getElementById('profileName').textContent = user.name || 'Student';
+        document.getElementById('profileEmail').textContent = user.email || 'student@example.com';
+
+        let allQuestions = [];
+        let solvedQuestionIds = new Set();
+        let currentFilter = 'all';
+        let currentOpenQuestion = null;
+
+        async function init() {
+            await loadProgress();
+            await loadCurriculum();
+        }
+
+        async function loadProgress() {
+            try {
+                const res = await fetch(`${API_URL}/progress/${user.id}`, {
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+                const progress = await res.json();
+                solvedQuestionIds = new Set(progress.map(p => p.question_id));
+            } catch (err) {
+                console.error('Failed to load progress:', err);
+            }
+        }
+
+        async function loadCurriculum() {
+            try {
+                const sRes = await fetch(`${API_URL}/content/sections`, {
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+                const sections = await sRes.json();
+
+                let easyTotal = 0, mediumTotal = 0, hardTotal = 0;
+                let easySolved = 0, mediumSolved = 0, hardSolved = 0;
+                allQuestions = [];
+
+                for (const section of sections) {
+                    const qRes = await fetch(`${API_URL}/content/questions/${section.id}`, {
+                        headers: { 'Authorization': `Bearer ${token}` }
+                    });
+                    const questions = await qRes.json();
+
+                    questions.forEach(q => {
+                        q.sectionName = section.section_name;
+                        q.section_id = section.id;
+                        allQuestions.push(q);
+
+                        const isSolved = solvedQuestionIds.has(q.id);
+
+                        if (q.difficulty === 'Easy') {
+                            easyTotal++;
+                            if (isSolved) easySolved++;
+                        }
+                        if (q.difficulty === 'Medium') {
+                            mediumTotal++;
+                            if (isSolved) mediumSolved++;
+                        }
+                        if (q.difficulty === 'Hard') {
+                            hardTotal++;
+                            if (isSolved) hardSolved++;
+                        }
+                    });
+                }
+
+                // Update stats
+                document.getElementById('easyProgress').textContent = `${easySolved}/${easyTotal}`;
+                document.getElementById('mediumProgress').textContent = `${mediumSolved}/${mediumTotal}`;
+                document.getElementById('hardProgress').textContent = `${hardSolved}/${hardTotal}`;
+                document.getElementById('totalSolved').textContent = solvedQuestionIds.size;
+
+                renderQuestions();
+
+            } catch (err) {
+                console.error(err);
+                document.getElementById('curriculumArea').innerHTML = `<p class="error">Failed to load curriculum.</p>`;
+            }
+        }
+
+        function renderQuestions() {
+            const area = document.getElementById('curriculumArea');
+            area.innerHTML = '';
+
+            const sections = {};
+            allQuestions.forEach(q => {
+                if (currentFilter !== 'all' && q.difficulty !== currentFilter) return;
+                if (!sections[q.sectionName]) sections[q.sectionName] = [];
+                sections[q.sectionName].push(q);
+            });
+
+            Object.keys(sections).forEach(sectionName => {
+                const sectionDiv = document.createElement('div');
+                sectionDiv.className = 'chapter-group';
+
+                let questionsHtml = '<div class="questions-grid">';
+                sections[sectionName].forEach(q => {
+                    const isSolved = solvedQuestionIds.has(q.id);
+                    questionsHtml += `
+                        <div class="question-btn ${isSolved ? 'solved' : ''}" style="cursor: default; display: flex; flex-direction: column;">
+                            <div style="display: flex; justify-content: space-between; align-items: start; width: 100%;">
+                                <span class="difficulty-badge ${q.difficulty}">${q.difficulty}</span>
+                                <div class="verified-badge" style="display: ${isSolved ? 'block' : 'none'}; color: var(--success); font-size: 1.2rem;">
+                                    <i class="fas fa-check-circle" title="Verified Solved"></i>
+                                </div>
+                            </div>
+                            
+                            <div class="problem-title" 
+                               style="font-weight: 700; font-size: 1.1rem; margin-top: 0.8rem; color: var(--text-primary); display: flex; align-items: center; justify-content: space-between; width: 100%;">
+                                <span>${q.title}</span>
+                                <a href="${q.leetcode_url}" target="_blank" style="color: #ffa116; font-size: 0.9rem;" title="Solve on LeetCode">
+                                    <i class="fas fa-external-link-alt"></i>
+                                </a>
+                            </div>
+
+                            <div style="margin-top: 1.5rem; display: flex; gap: 0.5rem; align-items: stretch;">
+                                <button class="btn btn-ghost" onclick='openQuestionModal(${JSON.stringify(q).replace(/'/g, "&apos;")})' 
+                                        title="View Approach & Solutions"
+                                        style="flex: 1; justify-content: center; font-size: 1rem;">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                                
+                                <button class="btn ${isSolved ? 'btn-success' : 'btn-outline'}" 
+                                        onclick="markAsSolvedFromCard(${q.id})" 
+                                        ${isSolved ? 'disabled' : ''}
+                                        style="flex: 2; justify-content: center; font-size: 0.85rem; ${isSolved ? 'background: var(--success); color: white; border-color: var(--success); opacity: 1;' : ''}">
+                                    <i class="fas ${isSolved ? 'fa-check-double' : 'fa-check'}"></i> 
+                                    ${isSolved ? 'Done' : 'Mark Done'}
+                                </button>
+                            </div>
+                        </div>
+                    `;
+                });
+                questionsHtml += '</div>';
+
+                sectionDiv.innerHTML = `
+                    <div class="chapter-header">
+                        <i class="fas fa-folder"></i>
+                        ${sectionName}
+                    </div>
+                    ${questionsHtml}
+                `;
+                area.appendChild(sectionDiv);
+            });
+        }
+
+        async function markAsSolvedFromCard(qId) {
+            try {
+                const res = await fetch(`${API_URL}/progress/mark`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    },
+                    body: JSON.stringify({
+                        studentId: user.id,
+                        questionId: qId
+                    })
+                });
+
+                if (res.ok) {
+                    solvedQuestionIds.add(qId);
+                    await loadCurriculum();
+                } else {
+                    const data = await res.json();
+                    alert(data.message || 'Failed to update progress');
+                }
+            } catch (err) {
+                console.error(err);
+                alert('Connection error.');
+            }
+        }
+
+        function openQuestionModal(q) {
+            currentOpenQuestion = q;
+            const modal = document.getElementById('questionModal');
+
+            document.getElementById('modalTitle').textContent = q.title;
+            document.getElementById('modalSectionName').textContent = q.sectionName;
+            document.getElementById('modalLeetCodeIcon').href = q.leetcode_url || '#';
+
+            const diffBadge = document.getElementById('modalDifficulty');
+            diffBadge.textContent = q.difficulty;
+            diffBadge.className = `difficulty-badge ${q.difficulty}`;
+
+            document.getElementById('approachText').innerHTML = q.procedure ? q.procedure.replace(/\n/g, '<br>') : 'No approach documented.';
+
+            // Default to python solution
+            switchLanguage('python');
+
+            const solvedBtn = document.getElementById('markSolvedBtn');
+            if (solvedQuestionIds.has(q.id)) {
+                solvedBtn.disabled = true;
+                solvedBtn.innerHTML = '<i class="fas fa-check-double"></i> Verified Done';
+                solvedBtn.classList.add('is-solved');
+            } else {
+                solvedBtn.disabled = false;
+                solvedBtn.innerHTML = '<i class="fas fa-check-circle"></i> Mark as Solved';
+                solvedBtn.classList.remove('is-solved');
+            }
+            modal.classList.add('active');
+            switchModalTab('approach');
+        }
+
+        function switchLanguage(lang) {
+            if (!currentOpenQuestion) return;
+
+            // Update UI
+            document.querySelectorAll('#modalSolutions .filter-tab').forEach(btn => btn.classList.remove('active'));
+            document.getElementById(`lang-${lang}`).classList.add('active');
+
+            const codeElem = document.getElementById('solutionCode');
+            if (lang === 'python') codeElem.textContent = currentOpenQuestion.solution_python || 'Python solution not available.';
+            if (lang === 'java') codeElem.textContent = currentOpenQuestion.solution_java || 'Java solution not available.';
+            if (lang === 'cpp') codeElem.textContent = currentOpenQuestion.solution_cpp || 'C++ solution not available.';
+        }
+
+        function closeModal() {
+            document.getElementById('questionModal').classList.remove('active');
+            currentOpenQuestion = null;
+        }
+
+        function switchModalTab(tab) {
+            const bodies = document.querySelectorAll('.modal-body');
+            const tabs = document.querySelectorAll('.modal-tab');
+
+            bodies.forEach(b => b.style.display = 'none');
+            tabs.forEach(t => t.classList.remove('active'));
+
+            const bodyId = `modal${tab.charAt(0).toUpperCase() + tab.slice(1)}`;
+            const bodyElem = document.getElementById(bodyId);
+            if (bodyElem) bodyElem.style.display = 'block';
+
+            const tabId = `tab-${tab}`;
+            const tabElem = document.getElementById(tabId);
+            if (tabElem) tabElem.classList.add('active');
+        }
+
+        async function markAsSolved() {
+            if (!currentOpenQuestion) return;
+            const qId = currentOpenQuestion.id;
+
+            const btn = document.getElementById('markSolvedBtn');
+            btn.innerHTML = '<i class="fas fa-circle-notch fa-spin"></i> Updating Progress...';
+            btn.disabled = true;
+
+            try {
+                const res = await fetch(`${API_URL}/progress/mark`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    },
+                    body: JSON.stringify({
+                        studentId: user.id,
+                        questionId: qId
+                    })
+                });
+
+                if (res.ok) {
+                    solvedQuestionIds.add(qId);
+                    btn.innerHTML = '<i class="fas fa-check-double"></i> Verified Done';
+                    btn.classList.add('is-solved');
+
+                    // Update main UI without full reload
+                    await loadCurriculum();
+                } else {
+                    alert('Failed to update progress. Please try again.');
+                    btn.disabled = false;
+                    btn.innerHTML = '<i class="fas fa-check-circle"></i> Mark as Solved';
+                }
+            } catch (err) {
+                console.error(err);
+                alert('Connection error.');
+                btn.disabled = false;
+            }
+        }
+
+        // Filter functionality
+        document.querySelectorAll('.filter-tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+                currentFilter = tab.dataset.filter;
+                renderQuestions();
+            });
+        });
+
+        // Logout
+        document.getElementById('logoutBtn').addEventListener('click', () => {
+            localStorage.clear();
+            window.location.href = 'student-login.html';
+        });
+
+        // Start app
+        init();
+    </script>
+</body>
+
+</html>
